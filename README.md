@@ -17,14 +17,10 @@ The package depends on R packages that are available through Bioconductor:
 To install these dependencies, run:
 
 ```{r}
-=======
-To install these dependencies, run:
-
-  ```{r}
->>>>>>> refs/remotes/origin/master
 source("https://bioconductor.org/biocLite.R")
 biocLite(c("Biostrings","GenomicRanges","IRanges","Rsamtools","QuasR"))
 ```
+
 
 After that, the easiest way to install the package is if using the *devtools* package.
 
