@@ -40,7 +40,7 @@ All the work is done by the liftover function.
 For example, if we have the following variants:
 
 | chromosome    | start |  end |
-| ------------- | ------|
+| ------------- | ------| -----|
 | chrI          | 85672 | 85672|
 | chrII         | 6533  |6533 |
 | chrIII        | 84430 |84430 |
@@ -63,9 +63,6 @@ Lift over can be done by a simple one liner:
   ```{r}
 newCoordinates = liftover(chromosome,start,end,originalGenome,newGenome)
 ```
-If you have 
-
-
 Note that if we don't supply variable names, the package will create them by itself in the format *chromosome_start_end*.
 Also, fasta index files (".bai files") will be generated automatically if missing,  and a Bowtie index for alignment to the new build is generated in a subdirectory called RBowtie. These files are currently not deleted by the package!
 **Note!** Currently, due to the properties of the package QuasR, lift over generates a log file in the R working directory related to the realignment.
