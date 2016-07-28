@@ -75,7 +75,7 @@ liftover = function(chrom,start,end = NULL,originalBuild,newBuild,varnames=NULL,
                        stringsAsFactors = F)
 
   choos = which(algn[[1]]$cigar==sprintf("%sM",2*lengthSides+1)&!is.na(algn[[1]]$rname))
-  newRegs[choos,"chrom"] = algn[[1]]$rname[choos]
+  newRegs[choos,"chrom"] = as.character(algn[[1]]$rname[choos])
   newRegs[choos,"start"] = algn[[1]]$pos[choos]+lengthSides
   newRegs[choos,"end"] = algn[[1]]$pos[choos]+lengthSides + end[choos]-start[choos]
   newRegs
