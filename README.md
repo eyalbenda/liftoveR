@@ -7,15 +7,25 @@
 ## Installation
 
 The package depends on R packages that are available through Bioconductor:
+<<<<<<< HEAD
 * Biostrings
+=======
+  * Biostrings
+>>>>>>> refs/remotes/origin/master
 * GenomicRanges
 * IRanges
 * Rsamtools
 * QuasR
+<<<<<<< HEAD
 
 To install these dependencies, run:
 
 ```{r}
+=======
+To install these dependencies, run:
+
+  ```{r}
+>>>>>>> refs/remotes/origin/master
 source("https://bioconductor.org/biocLite.R")
 biocLite(c("Biostrings","GenomicRanges","IRanges","Rsamtools","QuasR"))
 ```
