@@ -39,7 +39,7 @@ install.packages("devtools")
 All the work is done by the liftover function.
 For example, if we have the following variants:
 
-  | chromosome  | position |
+  | chromosome  | start |
   | ------------- | ------------- |
   | chrI  | 85672  |
   | chrII  | 30161  |
