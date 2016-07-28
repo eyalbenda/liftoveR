@@ -39,12 +39,12 @@ install.packages("devtools")
 All the work is done by the liftover function.
 For example, if we have the following variants:
 
-| chromosome    | start |
+| chromosome    | start |  end |
 | ------------- | ------|
-| chrI          | 85672 |
-| chrII         | 30161 |
-| chrIII        | 84430 |
-| chrIV         | 4779  |
+| chrI          | 85672 | 85672|
+| chrII         | 6533  |6533 |
+| chrIII        | 84430 |84430 |
+| chrIV         | 4779  |4779  |
 
   We also have two fasta files, the original build to which these variants match:
 
@@ -61,8 +61,11 @@ newGenome = "newGenome.fa"
 
 Lift over can be done by a simple one liner:
   ```{r}
-newCoordinates = liftover(chromosome,position,originalGenome,newGenome)
+newCoordinates = liftover(chromosome,start,end,originalGenome,newGenome)
 ```
+If you have 
 
-Note that because we didn't give variable names, the package will create them by itself in the format *chromosome_position*.
-**Note!** Currently, due to the properties of the package QuasR, lift over generates a log file in the R working directory related to the realignment. Also, an index for the new genome is generated in a subdirectory called RBowtie of the directoy where the genome fasta is located, and this isn't destroyed by default!
+
+Note that if we don't supply variable names, the package will create them by itself in the format *chromosome_start_end*.
+Also, fasta index files (".bai files") will be generated automatically if missing,  and a Bowtie index for alignment to the new build is generated in a subdirectory called RBowtie. These files are currently not deleted by the package!
+**Note!** Currently, due to the properties of the package QuasR, lift over generates a log file in the R working directory related to the realignment.
