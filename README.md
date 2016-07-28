@@ -39,12 +39,12 @@ install.packages("devtools")
 All the work is done by the liftover function.
 For example, if we have the following variants:
 
-  | chromosome  | start |
-  | ------------- | ------------- |
-  | chrI  | 85672  |
-  | chrII  | 30161  |
-  | chrIII  | 84430  |
-  | chrIV  | 4779  |
+| chromosome    | start |
+| ------------- | ------|
+| chrI          | 85672 |
+| chrII         | 30161 |
+| chrIII        | 84430 |
+| chrIV         | 4779  |
 
   We also have two fasta files, the original build to which these variants match:
 
