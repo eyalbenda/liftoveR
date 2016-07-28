@@ -7,16 +7,12 @@
 ## Installation
 
 The package depends on R packages that are available through Bioconductor:
-<<<<<<< HEAD
+
 * Biostrings
-=======
-  * Biostrings
->>>>>>> refs/remotes/origin/master
 * GenomicRanges
 * IRanges
 * Rsamtools
 * QuasR
-<<<<<<< HEAD
 
 To install these dependencies, run:
 
