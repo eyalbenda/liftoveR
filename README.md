@@ -2,7 +2,7 @@
 
 ## Outline
 
-  Life evolves slowly, but our understanding of it is evolving quite rapidly. One aspect of this is that the genome builds of model organisms, and humans, keep changing. Everyone who has worked with genomic data knows the frustration of working with different builds, and trying to fit everything together. To help with this, I wrote the package *liftoveR*. The package is highly versatile, and useful for any organism. All you need are the coordinates of your variants, the source genome, and the target you want to lift over onto. The package is made possible by the R community, and specifically packages for alignment of short reads from the *Bioconductor* repository (see next section for installation instructions).
+Everyone who has worked with genomic data knows the frustration of working with different builds, and trying to fit everything together. To help with this, I wrote the package *liftoveR*. The package is highly versatile, and useful for any organism. All you need are the coordinates of your variants, the source genome, and the target you want to lift over onto. The package is made possible by the R community, and specifically packages for alignment of short reads from the *Bioconductor* repository (see next section for installation instructions).
 
 ## Installation
 
