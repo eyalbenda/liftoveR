@@ -1,8 +1,8 @@
-# liftoveR:  Lift over regions from one genome build to another by realignment
+# liftoveR:  liftover regions from one genome build to another by realignment
 
 ## Outline
 
-Everyone who has worked with genomic data knows the frustration of working with different builds, and trying to fit everything together. To help with this, I wrote the package *liftoveR*. The package is highly versatile, and useful for any organism. All you need are the coordinates of your variants, the source genome, and the target you want to lift over onto. The package is made possible by the R community, and specifically packages for alignment of short reads from the *Bioconductor* repository (see next section for installation instructions).
+Everyone who has worked with genomic data knows the frustration of working with different builds, and trying to fit everything together. To help with this, I wrote the package *liftoveR*. The package is highly versatile, and useful for any organism. All you need are the coordinates of your variants, the source genome, and the target you want to liftover onto. The package is made possible by the R community, and specifically packages for alignment of short reads from the *Bioconductor* repository (see next section for installation instructions).
 
 ## Installation
 
@@ -54,14 +54,14 @@ For example, if we have the following variants:
 originalGenome = "originalGenome.fa"
 ```
 
-And the build we want to lift over to:
+And the build we want to liftover to:
 
 
   ```{r}
 newGenome = "newGenome.fa"
 ```
 
-Lift over can be done by a simple one liner:
+liftover can be done by a simple one liner:
   ```{r}
 newCoordinates = liftover(chromosome,start,end,originalGenome,newGenome)
 ```
@@ -69,4 +69,4 @@ If you don't supply feature names, the package will create them by itself in the
 
 Also, fasta index files (".bai files") will be generated automatically if missing,  and a Bowtie index for alignment to the new build is generated in a subdirectory called RBowtie. These files are currently not deleted by the package!
 
-**Note!** Currently, due to the features of the package QuasR, lift over generates a log file in the R working directory related to the realignment.
+**Note!** Currently, due to the features of the package QuasR, liftover generates a log file in the R working directory related to the realignment.
