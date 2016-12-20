@@ -13,6 +13,8 @@ The package depends on R packages that are available through Bioconductor:
 * IRanges
 * Rsamtools
 * QuasR
+*optional*: 
+* Rsubread
 
 To install these dependencies, run:
 
