@@ -37,7 +37,16 @@ devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignet
 The vignette include instructions to run an example dataset, using all three aligners. Since it includes performing alignments which are time consuming, building the *vignette* takes some time (~5 minutes, possibly more), so decide if it's worth it. To build with the vignette, run this:
 
 ```{r}
+<<<<<<< HEAD
 devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignette = TRUE)
+=======
+<<<<<<< HEAD
+devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignette = TRUE)
+=======
+devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch")
+>>>>>>> 8611093599652eaf1e47167ca5887ecea41e1bb3
+
+>>>>>>> b19965e9825a6ca3c5f12b6afa4b9201a744c6f7
 ```
 Then, view it using
 ```{r}
