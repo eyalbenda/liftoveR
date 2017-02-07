@@ -38,7 +38,6 @@ The vignette include instructions to run an example dataset, using all three ali
 
 ```{r}
 devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignette = TRUE)
-
 ```
 Then, view it using
 ```{r}
