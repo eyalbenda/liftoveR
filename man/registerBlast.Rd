@@ -7,7 +7,7 @@
 registerBlast(blastn, makeblastdb, samtools)
 }
 \arguments{
-\item{blastn}{path to the blastn executable. Currently, only version 2.2.31+ supported, since it's the only one with PROPER sam output}
+\item{blastn}{path to the blastn executable. Currently, only version 2.2.31+ supported, since it's the only one with appropriate SAM output}
 
 \item{makeblastdb}{path to the makeblastdb executable.}
 
