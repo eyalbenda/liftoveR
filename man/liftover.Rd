@@ -41,9 +41,7 @@ A data frame containing the variants with their positions in the new build, base
 \item{chrom_orig, start_orig, end_orig}{The original position supplied to function.}
 \item{chrom, start, end}{Coordinates of alignment in the new build}
 }
-\strong{Note:} Currently, when using RBowtie, a log file is saved to the current working directory. This is a feature of the QuasR package used as a wrapper for Rbowtie, and it is currently not possible to disable it.
 }
 \description{
 Lift over coordinates of variants from one genome build to another, by realignment
 }
-

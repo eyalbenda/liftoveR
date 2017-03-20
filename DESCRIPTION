@@ -3,7 +3,7 @@ Type: Package
 Title: Lift over regions from one genome build to another by realignment
 URL: http://github.com/eyalbenda/liftoveR
 BugReports: http://github.com/eyalbenda/liftoveR/issues
-Version: 0.2.0
+Version: 0.2.1
 Author: Eyal Ben David
 Maintainer: Eyal Ben David <ebd@ucla.edu>
 Description: A flexible solution for moving variants between genome builds, this package realigns the variants directly. Usage for other purposes, such as inter-species alignment might be possible, but untested.
@@ -12,13 +12,13 @@ LazyData: TRUE
 Depends:
     R (>= 2.10),
 Imports:
-    QuasR,
+    Rbowtie,
     Biostrings,
     Rsamtools,
     GenomicRanges,
     IRanges,
     stringr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: Rsubread,
     knitr,
     rmarkdown,

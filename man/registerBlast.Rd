@@ -16,4 +16,3 @@ registerBlast(blastn, makeblastdb, samtools)
 \description{
 Register paths to blast and samtools programs
 }
-

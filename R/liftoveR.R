@@ -1,4 +1,4 @@
-#' @import QuasR
+#' @import Rbowtie
 #' @import Rsamtools
 #' @import Biostrings
 #' @import GenomicRanges
@@ -109,13 +109,28 @@ getSequences =  function(originalFa,chrom,start,end)
            error=function(e){print("failed to find locations specified in fasta file. see below for details:");stop(e)})
 }
 
+bowtieAlign = function(reads,ref,cacheDir)
+{
+  RBowtieRefDir = sprintf("%s/%s.RBowtie",cacheDir,basename(ref))
+  if(!file.exists(paste(RBowtieRefDir,"/index.1.ebwt",sep="")))
+  {
+    print(sprintf("Index file for RBowtie not found, building in directory %s/%s.RBowtie",cacheDir,basename(ref)))
+    Rbowtie::bowtie_build(references = ref,outdir = RBowtieRefDir,force = T)
+  }
+  outFile = paste(reads,".sam",sep="")
+  print("Performing Bowtie alignment")
+  Rbowtie::bowtie(sequences = reads,index = paste(RBowtieRefDir,"/index",sep=""),type = "single",force = T,outfile = outFile,S=T)
+  bamFile = Rsamtools::asBam(outFile,outFile)
+  sortedBamFile = Rsamtools::sortBam(bamFile,paste(bamFile,"sorted",sep=""))
+  return(sortedBamFile)
+}
+
 doAlignment = function(seqs,ref,tmpdir,aligner,memlimit,maxMismatches,blastArgs = "")
 {
   if(aligner == "Rbowtie")
   {
-    write.table(data.frame(FileName=sprintf("%s",seqs),SampleName=sprintf("%s",seqs)),file=sprintf("%s/liftOverInput",tmpdir),quote=F,sep="\t",col.names=T,row.names=F)
-    aligned = QuasR::qAlign(sprintf("%s/liftOverInput",tmpdir),ref ,cacheDir = tmpdir)
-    return(aligned@alignments$FileName)
+    aligned = bowtieAlign(seqs,ref ,cacheDir = tmpdir)
+    return(aligned)
   } else if(aligner =="Rsubread")
   {
     if(!file.exists(sprintf("%s.reads",ref)))
@@ -165,7 +180,6 @@ doAlignment = function(seqs,ref,tmpdir,aligner,memlimit,maxMismatches,blastArgs 
 #' \item{chrom_orig, start_orig, end_orig}{The original position supplied to function.}
 #' \item{chrom, start, end}{Coordinates of alignment in the new build}
 #' }
-#' \strong{Note:} Currently, when using RBowtie, a log file is saved to the current working directory. This is a feature of the QuasR package used as a wrapper for Rbowtie, and it is currently not possible to disable it.
 #' @export
 liftover = function(chrom,start,end = NULL,originalBuild,newBuild,varnames=NULL,lengthSides=25,maxMismatches = 0,tmpdir = NULL,aligner = "Rsubread",memlimit = 8000, maxAllowedLength = 500,blastArgs= "-max_hsps 1 -parse_deflines -outfmt 15 -max_target_seqs 1")
 {

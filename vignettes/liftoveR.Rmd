@@ -243,11 +243,9 @@ We are able to get putatively more alignments, but be careful, our error rate al
 
 Let's get rid of all the temporary files created for this run. Since running the package requires generating indices for alignment, it is recommended to run in a new directory, to be able to clean up afterwards.
 ```{r results="hide",warning=F,message=F}
-removeDirectory("aspFlavusNew.fa.Rbowtie",recursive = T)
-tmpdir = dir(pattern="Rtmp")
+tmpdir = dir(pattern="RBowtie")
 removeDirectory(tmpdir,recursive = T)
 file.remove(dir(pattern="aspFlavus"))
-file.remove(dir(pattern="QuasR"))
 file.remove(dir(pattern="liftOverInput"))
 file.remove(dir(pattern="blast"))
 ```
