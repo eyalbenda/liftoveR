@@ -4,7 +4,7 @@ Title: Lift over regions from one genome build to another by realignment
 URL: http://github.com/eyalbenda/liftoveR
 BugReports: http://github.com/eyalbenda/liftoveR/issues
 Version: 0.2.1
-Author: Eyal Ben David
+Author: Eyal Ben David, Leonid Kruglyak
 Maintainer: Eyal Ben David <ebd@ucla.edu>
 Description: A flexible solution for moving variants between genome builds, this package realigns the variants directly. Usage for other purposes, such as inter-species alignment might be possible, but untested.
 License: MIT + file LICENSE

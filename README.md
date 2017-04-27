@@ -3,7 +3,7 @@
 ## Outline
 
 The package *liftoveR* is a fast and versatile tools for moving between one set of genome coordinates to another based on sequence identity. This is done by realigning the sequence around the coordinates in the source genome to the target genome. The package incorporates multiple tools for alignment, including Bowtie (useful for stringently aligning closely related sequences), Rsubread (useful for aligning related sequences while allowing gaps) and blastn (mapping across species, or highly divergent sequences).
-See the associated vignette for use instructions and use cases.
+
 
 ## Installation
 
@@ -30,19 +30,10 @@ To align using blastn, the package currently only support version *blast 2.2.31+
 After that, the easiest way to install the package is if using the *devtools* package. If you want to quickly install the package, this should get it done.
 
 ```{r}
-devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignette = FALSE)
+devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch")
 ```
 *Note: Due to requirment of the package used for alignment, on windows only 64-bit versions of R are supported.*
 
-The vignette include instructions to run an example dataset, using all three aligners. Since it includes performing alignments which are time consuming, building the *vignette* takes some time (~5 minutes, possibly more), so decide if it's worth it. To build with the vignette, run this:
-
-```{r}
-devtools::install_github("eyalbenda/liftoveR",args="--no-multiarch",build_vignette = TRUE)
-```
-Then, view it using
-```{r}
-vignette("liftoveR")
-```
 If needed, you can first install the *devtools* package using
 
 ```{r}

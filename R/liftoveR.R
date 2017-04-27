@@ -31,24 +31,19 @@ subtractSides = function(pos,lengthSides)
 #' Register paths to blast and samtools programs
 #' @param blastn path to the blastn executable. Currently, only version 2.2.31+ supported, since it's the only one with appropriate SAM output
 #' @param makeblastdb path to the makeblastdb executable.
-#' @param samtools path to the samtools executable
 #'@export
-registerBlast = function(blastn,makeblastdb,samtools)
+registerBlast = function(blastn,makeblastdb)
 {
-  if(!file.exists(blastn) | !file.exists(makeblastdb) | !file.exists(samtools))
-    stop("Error: invalid path given to blastn, makeblastdb or samtools")
+  if(!file.exists(blastn) | !file.exists(makeblastdb))
+    stop("Error: invalid path given to blastn or makeblastdb")
   versionStringBlast = system(sprintf("%s -version",blastn),intern=T)[1]
   versionStringBlastDB = system(sprintf("%s -version",makeblastdb),intern=T)[1]
-  versionStringSamtools = system(sprintf("%s --version",samtools),intern=T)[1]
   if(!grepl("blastn",versionStringBlast))
     stop("Error: incorrect file referenced as blastn")
   if(!grepl("makeblastdb",versionStringBlastDB))
     stop("Error: incorrect file referenced as makeblastdb")
-  if(!grepl("samtools",versionStringSamtools))
-    stop("Error: incorrect file referenced as samtools")
   assign("blastn",blastn,envir=.blastEnv)
   assign("makeblastdb",makeblastdb,envir=.blastEnv)
-  assign("samtools",samtools,envir=.blastEnv)
   print("blast programs registered")
 }
 
@@ -109,7 +104,7 @@ getSequences =  function(originalFa,chrom,start,end)
            error=function(e){print("failed to find locations specified in fasta file. see below for details:");stop(e)})
 }
 
-bowtieAlign = function(reads,ref,cacheDir)
+bowtieAlign = function(reads,ref,cacheDir,maxMismatches)
 {
   RBowtieRefDir = sprintf("%s/%s.RBowtie",cacheDir,basename(ref))
   if(!file.exists(paste(RBowtieRefDir,"/index.1.ebwt",sep="")))
@@ -119,10 +114,9 @@ bowtieAlign = function(reads,ref,cacheDir)
   }
   outFile = paste(reads,".sam",sep="")
   print("Performing Bowtie alignment")
-  Rbowtie::bowtie(sequences = reads,index = paste(RBowtieRefDir,"/index",sep=""),type = "single",force = T,outfile = outFile,S=T)
-  bamFile = Rsamtools::asBam(outFile,outFile)
-  sortedBamFile = Rsamtools::sortBam(bamFile,paste(bamFile,"sorted",sep=""))
-  return(sortedBamFile)
+  Rbowtie::bowtie(sequences = reads,index = paste(RBowtieRefDir,"/index",sep=""),type = "single",force = T,outfile = outFile,S=T,best=T,strata=T,m=1,quiet=T)
+  bamFile = Rsamtools::asBam(outFile,outFile,overwrite=T,indexDestination=T)
+  return(bamFile)
 }
 
 doAlignment = function(seqs,ref,tmpdir,aligner,memlimit,maxMismatches,blastArgs = "")
@@ -144,20 +138,19 @@ doAlignment = function(seqs,ref,tmpdir,aligner,memlimit,maxMismatches,blastArgs 
   {
     blastn = get("blastn",envir = .blastEnv)
     makeblastdb = get("makeblastdb",envir = .blastEnv)
-    samtools = get("samtools",envir = .blastEnv)
-    if(is.null(blastn)|is.null(makeblastdb)|is.null(samtools))
+    if(is.null(blastn)|is.null(makeblastdb))
     {
-      stop("blastn, makeblastdb or samtools not registered")
+      stop("blastn or makeblastdb not registered")
     }
     blastdb = file.path(tmpdir,"blastdb")
-    bampath = file.path(sprintf("%s.blast.bam",seqs))
+    bampath = file.path(sprintf("%s.blast",seqs))
     sampath = file.path(sprintf("%s.blast.sam",seqs))
     print("building blast database")
     system(sprintf("%s -in %s -out %s -dbtype nucl -parse_seqids",makeblastdb,ref,blastdb))
     print("performing alignment (may take a long time, this IS blast)....")
     system(sprintf("%s -db %s -query %s %s -out %s",blastn,blastdb,seqs,blastArgs,sampath),ignore.stderr = T,ignore.stdout = T)
-    system(sprintf("%s view -bS %s -o %s",samtools,sampath,bampath),ignore.stderr = T,ignore.stdout = T)
-    return(bampath)
+    bamOut=Rsamtools::asBam(sampath,bampath,indexDestination=T,overwrite=T)
+    return(bamOut)
     }
 }
 
@@ -210,9 +203,9 @@ liftover = function(chrom,start,end = NULL,originalBuild,newBuild,varnames=NULL,
   if(!dir.exists(tmpdir)) tryCatch(dir.create(tmpdir),error = function(e){print("Could not create temp directory at supplied path. see below for details:");stop(e)})
   if(aligner == "blastn")
   {
-    if(is.null(.blastEnv$blastn)|is.null(.blastEnv$makeblastdb)|is.null(.blastEnv$samtools))
+    if(is.null(.blastEnv$blastn)|is.null(.blastEnv$makeblastdb))
     {
-      stop("blastn, makeblastdb or samtools not registered")
+      stop("blastn or makeblastdb not registered")
     }
     readsPath = file.path(tmpdir,"liftOverInput.fasta")
     readsFormat = "fasta"

@@ -4,14 +4,12 @@
 \alias{registerBlast}
 \title{Register paths to blast and samtools programs}
 \usage{
-registerBlast(blastn, makeblastdb, samtools)
+registerBlast(blastn, makeblastdb)
 }
 \arguments{
 \item{blastn}{path to the blastn executable. Currently, only version 2.2.31+ supported, since it's the only one with appropriate SAM output}
 
 \item{makeblastdb}{path to the makeblastdb executable.}
-
-\item{samtools}{path to the samtools executable}
 }
 \description{
 Register paths to blast and samtools programs
